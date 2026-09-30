@@ -1,0 +1,84 @@
+{
+  "exportVersion": 10,
+  "dashboards": {
+    "dashboard-1": {
+      "title": "SDA Assignment 3 - Transaction Dashboard",
+      "description": "Analysis of consumed streaming banking data from Kafka",
+      "layout": [
+        {"w": 4, "h": 2, "x": 0, "y": 0, "i": "item-1"},
+        {"w": 4, "h": 2, "x": 4, "y": 0, "i": "item-2"},
+        {"w": 2, "h": 2, "x": 8, "y": 0, "i": "item-3"}
+      ],
+      "embedding": {
+        "anonymousAuthEnabled": true
+      },
+      "filters": []
+    }
+  },
+  "items": {
+    "item-1": {
+      "title": "Total Revenue Over Time",
+      "dashboardId": "dashboard-1",
+      "dataSourceId": "data-source-1",
+      "itemType": "chart",
+      "chartType": "Line",
+      "channels": {
+        "x": {
+          "field": "timestamp",
+          "type": "nominal",
+          "channelType": "category",
+          "isBinning": true
+        },
+        "y": {
+          "field": "amount",
+          "type": "quantitative",
+          "channelType": "aggregation",
+          "aggregate": "sum"
+        }
+      }
+    },
+    "item-2": {
+      "title": "Transactions by Payment Status",
+      "dashboardId": "dashboard-1",
+      "dataSourceId": "data-source-1",
+      "itemType": "chart",
+      "chartType": "Column",
+      "channels": {
+        "x": {
+          "field": "payment_status",
+          "type": "nominal",
+          "channelType": "category"
+        },
+        "y": {
+          "field": "_id",
+          "type": "quantitative",
+          "channelType": "aggregation",
+          "aggregate": "count"
+        }
+      }
+    },
+    "item-3": {
+      "title": "Average Risk Score",
+      "dashboardId": "dashboard-1",
+      "dataSourceId": "data-source-1",
+      "itemType": "chart",
+      "chartType": "Gauge",
+      "channels": {
+        "value": {
+          "field": "risk_score",
+          "type": "quantitative",
+          "channelType": "aggregation",
+          "aggregate": "mean"
+        }
+      }
+    }
+  },
+  "dataSources": {
+    "data-source-1": {
+      "alias": "Streaming Transactions",
+      "collection": "transactions",
+      "database": "sda_assignment",
+      "sourceType": "cluster"
+    }
+  }
+}
